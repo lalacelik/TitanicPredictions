@@ -88,9 +88,29 @@ print("% survival by embarkment and class",EmbarkClass)
 # print(EmbarkClassSum)
 
 #See whether class distribution is similar among embarkments
-# EmbarkClass2= training_set.groupby(["Embarked"])["Pclass"].mean()
-# print(EmbarkClass2)
+EmbarkClass2= training_set.groupby(["Embarked"])["Pclass"].mean()
+print("Class distribution by dock",EmbarkClass2)
 
+########################################PLOT########################################################
+# # bar plot
+
+# #!!plot survived female number vs dead female number
+
+training_set.groupby(['Sex','AgeGroup'])['Survived'].count().plot(kind='bar')
+training_set.groupby(['Sex','AgeGroup', 'Pclass'])['Survived'].size().unstack().plot(kind='bar',stacked=True)
+
+training_set.groupby(['Sex','AgeGroup'])['Survived'].mean().unstack().plot(kind='bar', stacked=True)
+
+##!!figure out how to normalize to percentage
+
+training_set.groupby(['Sex','Survived']).size().unstack().plot(kind='bar', stacked=True)
+
+plt.figure(figsize=(5,4), dpi=150)
+sns.heatmap(trainfrom.corr(), annot=True)
+
+plt.show()
+
+##TRY WEIGHTS
 #puanlama sistemi yarat
 #female olmak ++
  #her kategorinin etki yuzdelerine bak ona gore puanlama sistemi yap
@@ -103,26 +123,3 @@ print("% survival by embarkment and class",EmbarkClass)
 #plot what you've found
 #start points system
 ##!!! Weight system for points by each
-
-
-
-########################################PLOT##########
-# # bar plot
-
-# #!!plot survived female number vs dead female number
-
-training_set.groupby(['Sex','AgeGroup'])['Survived'].count().plot(kind='bar')
-training_set.groupby(['Sex','AgeGroup', 'Pclass'])['Survived'].size().unstack().plot(kind='bar',stacked=True)
-
-training_set.groupby(['Sex','Survived']).size().unstack().plot(kind='bar', stacked=True)
-
-##!!figure out how to normalize to percentage
-
-training_set.groupby(['Sex','Survived']).size().unstack().plot(kind='bar', stacked=True)
-
-plt.figure(figsize=(5,4), dpi=150)
-sns.heatmap(trainfrom.corr(), annot=True)
-
-plt.show()
-
-##TRY WEIGHTS
